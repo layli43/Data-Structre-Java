@@ -11,3 +11,6 @@ built with a standard Maven project structure.
 #### 2. Environment
 - JDK 20
 - MAVEN
+
+#### 3. Note
+Please delete the .idea file if you don't use idea.
