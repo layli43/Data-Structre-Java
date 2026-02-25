@@ -1,8 +1,8 @@
 package org.example.assignment1.Queue;
 
 public interface DequeueInterface<T> {
-    void addFirst(T item);
-    void addLast(T item);
+    void insertFirst(T item);
+    void insertLast(T item);
     T removeFirst() throws Exception;
     T removeLast() throws Exception;
     T peekFirst() throws Exception;
