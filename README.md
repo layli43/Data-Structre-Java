@@ -1,4 +1,4 @@
-### Data Structures in Java
+### Data Structures in Java-Group 15
 A organized collection of Data Structures implementations and its experiments, 
 built with a standard Maven project structure.
 
