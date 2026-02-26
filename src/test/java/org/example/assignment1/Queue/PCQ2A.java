@@ -11,22 +11,24 @@ public class PCQ2A {
         q.enqueue('t');
 
         resPoped += q.dequeue();
+        System.out.println(q);
 
         q.enqueue('h');
         q.enqueue('o');
 
         resPoped += q.dequeue();
+        System.out.println(q);
 
         q.enqueue('u');
         q.enqueue('s');
         q.enqueue('e');
 
         System.out.println("Poped result: " + resPoped);
-
+        System.out.println(q);
         while(!q.isEmpty()) {
             resStored += q.dequeue();
         }
-        System.out.println(q);
+
         System.out.println("Stored result: " + resStored);
     }
 }

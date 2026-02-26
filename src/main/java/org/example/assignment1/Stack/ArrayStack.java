@@ -50,7 +50,7 @@ public class ArrayStack<T> implements StackInterface<T> {
     public String toString() {
         StringBuilder output = new StringBuilder("" + size + "\t");
         for (int i = 0; i < size; i++) {
-            output.append(stack[i]);
+            output.append(stack[i]+" ");
         }
         return output.toString();
     }

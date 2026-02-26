@@ -22,11 +22,11 @@ public class PCQ7L {
         d.insertLast("Germany");
 
         System.out.println("Removed countries: " + resRemoved.trim());
-
+        System.out.println(d);
         while(!d.isEmpty()) {
             resStored += d.removeFirst() + " ";
         }
-        System.out.println(d);
+
         System.out.println("Stored countries: " + resStored.trim());
     }
 }

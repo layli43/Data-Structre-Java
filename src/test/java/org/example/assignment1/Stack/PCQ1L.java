@@ -10,22 +10,24 @@ public class PCQ1L {
         s.push(5);
 
         resPoped += s.pop().intValue();
+        System.out.println(s);
 
         s.push(17);
         s.push(12);
 
         resPoped += s.pop().intValue();
+        System.out.println(s);
 
         s.push(7);
         s.push(13);
         s.push(2);
 
         System.out.println("Poped result: " + resPoped);
-
+        System.out.println(s);
         while(!s.isEmpty()) {
             resStored += s.pop().intValue();
         }
-        System.out.println(s);
+
         System.out.println("Stored result: " + resStored);
     }
 }

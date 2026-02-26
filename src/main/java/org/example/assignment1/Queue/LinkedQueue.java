@@ -35,7 +35,7 @@ public class LinkedQueue<E> implements QueueInterface<E>{
         StringBuilder sb = new StringBuilder(size + "\t");
         Node curr = front;
         while (curr != null) {
-            sb.append(curr.element);
+            sb.append(curr.element+" ");
             curr = curr.next;
         }
         return sb.toString();

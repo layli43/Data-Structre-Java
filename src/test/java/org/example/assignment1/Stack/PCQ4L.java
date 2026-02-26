@@ -1,6 +1,6 @@
 package org.example.assignment1.Stack;
 
-public class PCQ4B {
+public class PCQ4L {
     public static void main(String[] args) {
         LinkedStack<Student> s = new LinkedStack<>();
         String resPoped = "";
@@ -16,15 +16,18 @@ public class PCQ4B {
         s.push(new Student("01020311", "Damian Dalton"));
 
         resPoped += s.pop().getName() + " ";
+        System.out.println(s);
         resPoped += s.pop().getName() + " ";
+        System.out.println(s);
         resPoped += s.pop().getName() + " ";
+        System.out.println(s);
 
         System.out.println("Poped result: " + resPoped.trim());
-
+        System.out.println(s);
         while(!s.isEmpty()) {
             resStored += s.pop().getName() + " ";
         }
-        System.out.println(s);
+
         System.out.println("Stored result: " + resStored.trim());
     }
 }

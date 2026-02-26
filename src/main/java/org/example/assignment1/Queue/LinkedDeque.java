@@ -53,7 +53,7 @@ public class LinkedDeque<E> implements DequeueInterface<E>{
     }
 
     @Override
-    public E font() throws Exception {
+    public E front() throws Exception {
         return front.element;
     }
 

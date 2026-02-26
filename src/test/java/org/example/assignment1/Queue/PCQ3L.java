@@ -22,11 +22,11 @@ public class PCQ3L {
         q.enqueue("Germany");
 
         System.out.println("Poped result: " + resPoped.trim());
-
+        System.out.println(q);
         while(!q.isEmpty()) {
             resStored += q.dequeue() + " ";
         }
-        System.out.println(q);
+
         System.out.println("Stored result: " + resStored.trim());
     }
 }

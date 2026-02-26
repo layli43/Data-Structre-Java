@@ -50,7 +50,7 @@ public class LinkedStack<T> implements StackInterface<T> {
         String output = "";
         Node node = top;
         while (node != null) {
-            output = node.element.toString() + "" + output; // [cite: 202]
+            output = node.element.toString() + " " + output; // [cite: 202]
             node = node.next;
         }
         return size + "\t" + output; // [cite: 208]

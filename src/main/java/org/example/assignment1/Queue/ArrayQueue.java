@@ -43,7 +43,7 @@ public class ArrayQueue<E> implements QueueInterface<E>{
     public String toString() {
         StringBuilder sb = new StringBuilder(size + "\t");
         for (int i = 0; i < size; i++) {
-            sb.append(queue[(front + i) % queue.length]);
+            sb.append(queue[(front + i) % queue.length]+" ");
         }
         return sb.toString();
     }
