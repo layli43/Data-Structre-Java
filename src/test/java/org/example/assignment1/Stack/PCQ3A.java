@@ -26,6 +26,7 @@ public class PCQ3A {
         while(!s.isEmpty()) {
             resStored += s.pop() + " ";
         }
+        System.out.println(s);
         System.out.println("Stored result: " + resStored.trim());
     }
 }

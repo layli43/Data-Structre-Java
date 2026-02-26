@@ -24,6 +24,7 @@ public class PCQ4B {
         while(!s.isEmpty()) {
             resStored += s.pop().getName() + " ";
         }
+        System.out.println(s);
         System.out.println("Stored result: " + resStored.trim());
     }
 }

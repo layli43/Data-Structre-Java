@@ -5,8 +5,8 @@ public interface DequeueInterface<T> {
     void insertLast(T item);
     T removeFirst() throws Exception;
     T removeLast() throws Exception;
-    T peekFirst() throws Exception;
-    T peekLast() throws Exception;
+    T font() throws Exception;
+    T rear() throws Exception;
     boolean isEmpty();
     int size();
 }

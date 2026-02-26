@@ -19,12 +19,12 @@ public class PCQ1A {
         q.enqueue(7);
         q.enqueue(13);
         q.enqueue(2);
-
         System.out.println("Poped result: " + resPoped);
 
         while(!q.isEmpty()) {
             resStored += q.dequeue();
         }
+        System.out.println(q);
         System.out.println("Stored result: " + resStored);
     }
 }

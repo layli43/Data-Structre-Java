@@ -29,6 +29,7 @@ public class PCQ2L {
         while(!s.isEmpty()) {
             resStored += s.pop();
         }
+        System.out.println(s);
         System.out.println("Stored result: " + resStored);
     }
 }

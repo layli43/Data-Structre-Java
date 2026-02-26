@@ -26,6 +26,7 @@ public class PCQ2L {
         while(!q.isEmpty()) {
             resStored += q.dequeue();
         }
+        System.out.println(q);
         System.out.println("Stored result: " + resStored);
     }
 }

@@ -25,6 +25,7 @@ public class PCQ1L {
         while(!s.isEmpty()) {
             resStored += s.pop().intValue();
         }
+        System.out.println(s);
         System.out.println("Stored result: " + resStored);
     }
 }

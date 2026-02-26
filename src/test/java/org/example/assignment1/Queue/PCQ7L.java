@@ -26,6 +26,7 @@ public class PCQ7L {
         while(!d.isEmpty()) {
             resStored += d.removeFirst() + " ";
         }
+        System.out.println(d);
         System.out.println("Stored countries: " + resStored.trim());
     }
 }

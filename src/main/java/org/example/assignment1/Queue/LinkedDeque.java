@@ -53,12 +53,12 @@ public class LinkedDeque<E> implements DequeueInterface<E>{
     }
 
     @Override
-    public E peekFirst() throws Exception {
+    public E font() throws Exception {
         return front.element;
     }
 
     @Override
-    public E peekLast() throws Exception {
+    public E rear() throws Exception {
         return rear.element;
     }
 
