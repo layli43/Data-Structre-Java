@@ -1,5 +1,9 @@
 package org.example.assignment1.Queue;
 
+/**
+ * Array implementation of Queue
+ * @param <E>
+ */
 public class ArrayQueue<E> implements QueueInterface<E>{
     private E[] queue;
     private int front;
