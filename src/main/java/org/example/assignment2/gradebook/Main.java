@@ -10,8 +10,8 @@ public class Main {
 
         GradeBook book = new GradeBook();
 
-        // ─── 1. Enrol students ──────────────────────────
-        System.out.println("═══ ENROLLING STUDENTS ═══\n");
+        //Enrol students
+        System.out.println("Enrolling students\n");
 
         book.enrol(new Student(25203212, "Alice Johnson",    88.5));
         book.enrol(new Student(25203202, "Bob Smith",        72.0));
@@ -25,25 +25,22 @@ public class Main {
         System.out.println("  Tree height: " + book.treeHeight());
         System.out.println();
 
-        // ─── 2. Print full roster (in-order traversal) ──
+        //Print full roster (in-order traversal)
         book.printRoster();
         System.out.println();
 
-        // ─── 3. ASCII tree visualisation ────────────────
-        System.out.println("═══ TREE SHAPE ═══\n");
+        //ASCII tree visualisation
+        System.out.println("Tree shape:\n");
         // Access the underlying tree for printing.
-        // In a real project you'd expose this through
-        // a getter; here we rebuild a small tree to
-        // keep Main self-contained with TreePrinter.
-        BinaryTree<Integer> demoTree = new BinaryTree<>(Comparator.naturalOrder());
+        BinaryTree<Integer> demoTree = new BinaryTree<Integer>(Comparator.naturalOrder());
         for (int id : new int[]{1025, 1010, 1042, 1005, 1018, 1030, 1050}) {
             demoTree.insert(id);
         }
         TreePrinter.print(demoTree);
         System.out.println();
 
-        // ─── 4. Lookup & membership ─────────────────────
-        System.out.println("═══ LOOKUPS ═══\n");
+        //Lookup & membership
+        System.out.println("Lookups:\n");
 
         Student found = book.lookup(1042);
         System.out.println("  find(1042)   → " + found);
@@ -52,16 +49,16 @@ public class Main {
         System.out.println("  contains(9999) → " + book.isEnrolled(9999));
         System.out.println();
 
-        // ─── 5. Update a grade (replace) ────────────────
-        System.out.println("═══ UPDATE GRADE ═══\n");
+        //Update a grade (replace)
+        System.out.println("Update grade:\n");
 
-        System.out.println("  Before: " + book.lookup(1010));
+        System.out.println("Before: " + book.lookup(1010));
         book.updateGrade(1010, 85.0);
         System.out.println("  After:  " + book.lookup(1010));
         System.out.println();
 
-        // ─── 6. Withdraw a student (delete) ─────────────
-        System.out.println("═══ WITHDRAW STUDENT ═══\n");
+        //Withdraw a student
+        System.out.println("Withdraw student:\n");
 
         Student removed = book.withdraw(1042);
         System.out.println("  Withdrawn: " + removed);
@@ -69,12 +66,13 @@ public class Main {
         System.out.println("  Tree height:  " + book.treeHeight());
         System.out.println();
 
-        // ─── 7. Roster after mutation ───────────────────
+        //Roster after mutation
+        System.out.println("Roster after mutation:\n");
         book.printRoster();
         System.out.println();
 
-        // ─── 8. Grade statistics ────────────────────────
-        System.out.println("═══ GRADE STATISTICS ═══\n");
+        //Grade statistics
+        System.out.println("Grade statistics:\n");
 
         double[] stats = book.gradeStats();
         System.out.printf("  Min : %.1f%n", stats[0]);
@@ -82,13 +80,13 @@ public class Main {
         System.out.printf("  Avg : %.1f%n", stats[2]);
         System.out.println();
 
-        // ─── 9. Structure walk (positional queries) ─────
-        System.out.println("═══ TREE STRUCTURE DETAIL ═══\n");
+        //Structure walk (positional queries)
+        System.out.println("Tree structure detail:\n");
         book.printStructureInfo();
         System.out.println();
 
-        // ─── 10. Edge case: empty tree ──────────────────
-        System.out.println("═══ EMPTY TREE ═══\n");
+        //Edge case: empty tree
+        System.out.println("Empty tree:\n");
 
         GradeBook empty = new GradeBook();
         System.out.println("  isEmpty: " + empty.isEmpty());
