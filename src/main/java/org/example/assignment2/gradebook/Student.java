@@ -1,8 +1,4 @@
 package org.example.assignment2.gradebook;
-
-/**
- * Immutable student record keyed by a unique integer ID.
- */
 public class Student {
 
     private final int    id;

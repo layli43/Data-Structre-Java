@@ -4,10 +4,6 @@ import org.example.assignment2.BinaryTree;
 import org.example.structres.Position;
 
 public class TreePrinter {
-
-    /**
-     * Print the tree sideways (right subtree on top).
-     */
     public static <T> void print(BinaryTree<T> tree) {
         if (tree.isEmpty()) {
             System.out.println("  (empty tree)");
@@ -42,8 +38,6 @@ public class TreePrinter {
             printNode(tree, tree.left(pos), childPrefix, false, false);
         }
     }
-
-    /** Short label for a position (uses toString of the element). */
     private static <T> String label(Position<T> pos) {
         return String.valueOf(pos.element());
     }
