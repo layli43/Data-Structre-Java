@@ -10,41 +10,28 @@ import java.util.List;
 
 public class BinaryTree<T> implements Tree<T> {
 
-    // ────────────────────────────────────────────────────────
-    //  Fields
-    // ────────────────────────────────────────────────────────
-
+    // Root node of the tree and size tracker
     protected TreeNode<T> root;
     protected int size;
+
+    // Comparator used for ordering elements (BST property)
     protected final Comparator<T> cmp;
 
-    // ────────────────────────────────────────────────────────
-    //  Constructor
-    // ────────────────────────────────────────────────────────
-
+    // Constructor
     public BinaryTree(Comparator<T> cmp) {
         this.cmp  = cmp;
         this.root = null;
         this.size = 0;
     }
 
-    // ────────────────────────────────────────────────────────
-    //  Validation helper
-    // ────────────────────────────────────────────────────────
-
-    /**
-     * Safely cast a Position to a TreeNode, verifying its type.
-     */
+    // Ensures a position is actually a TreeNode
     protected TreeNode<T> validate(Position<T> p) {
         if (!(p instanceof TreeNode))
             throw new IllegalArgumentException("Invalid position type");
         return (TreeNode<T>) p;
     }
 
-    // ================================================================
-    //  AbstractTree  — structural queries & traversals
-    // ================================================================
-
+    // Basic tree methods
     @Override
     public int size() { return size; }
 
@@ -54,6 +41,7 @@ public class BinaryTree<T> implements Tree<T> {
     @Override
     public Position<T> root() { return root; }
 
+    // Adds the root node
     @Override
     public void addRoot(T data) {
         if (root != null)
@@ -72,6 +60,7 @@ public class BinaryTree<T> implements Tree<T> {
         return validate(p).getParent();
     }
 
+    // Returns children (max 2 in binary tree)
     @Override
     public Iterator<Position<T>> children(Position<T> p) {
         TreeNode<T> node = validate(p);
@@ -81,6 +70,7 @@ public class BinaryTree<T> implements Tree<T> {
         return listIterator(ch);
     }
 
+    // Checks if node has at least one child
     @Override
     public boolean isInternal(Position<T> p) {
         TreeNode<T> n = validate(p);
@@ -92,6 +82,7 @@ public class BinaryTree<T> implements Tree<T> {
         return !isInternal(p);
     }
 
+    // Replace value stored at a node
     @Override
     public T replace(Position<T> p, T t) {
         TreeNode<T> node = validate(p);
@@ -100,7 +91,7 @@ public class BinaryTree<T> implements Tree<T> {
         return old;
     }
 
-    /** Returns an in-order iterator over all positions. */
+    // In-order traversal of positions
     @Override
     public Iterator<Position<T>> positions() {
         List<Position<T>> list = new ArrayList<>(size);
@@ -108,13 +99,14 @@ public class BinaryTree<T> implements Tree<T> {
         return listIterator(list);
     }
 
+    // Recursive inorder traversal
     private void inorder(TreeNode<T> n, List<Position<T>> list) {
         if (n.getLeft()  != null) inorder(n.getLeft(), list);
         list.add(n);
         if (n.getRight() != null) inorder(n.getRight(), list);
     }
 
-    /** Returns an in-order iterator over all elements. */
+    // Returns elements using inorder traversal
     @Override
     public Iterator<T> elements() {
         List<T> list = new ArrayList<>(size);
@@ -123,9 +115,7 @@ public class BinaryTree<T> implements Tree<T> {
         return listIterator(list);
     }
 
-    /**
-     * Wraps a java.util.List in our custom Iterator interface.
-     */
+    // Helper to convert list into custom iterator
     private <E> Iterator<E> listIterator(List<E> list) {
         return new Iterator<E>() {
             private int index = 0;
@@ -134,16 +124,7 @@ public class BinaryTree<T> implements Tree<T> {
         };
     }
 
-    // ================================================================
-    //  Tree  — addChild & remove
-    // ================================================================
-
-    /**
-     * Adds data as a child of p.  Fills the left slot first,
-     * then the right slot.
-     *
-     * @throws IllegalStateException if p already has two children
-     */
+    // Adds a child (left first, then right)
     @Override
     public Position<T> addChild(Position<T> p, T data) {
         TreeNode<T> node = validate(p);
@@ -152,19 +133,13 @@ public class BinaryTree<T> implements Tree<T> {
         throw new IllegalStateException("Node already has two children");
     }
 
-    /**
-     * Removes position p from the tree.
-     * p must have at most one child; the lone child (if any) is
-     * promoted to replace p.
-     *
-     * @throws IllegalArgumentException if p has two children
-     */
+    // Removes a node with at most one child
     @Override
     public T remove(Position<T> p) {
         TreeNode<T> node = validate(p);
+
         if (node.getLeft() != null && node.getRight() != null)
-            throw new IllegalArgumentException(
-                    "Cannot remove node with two children via generic remove");
+            throw new IllegalArgumentException("Cannot remove node with two children");
 
         TreeNode<T> child = (node.getLeft() != null)
                 ? node.getLeft() : node.getRight();
@@ -178,22 +153,21 @@ public class BinaryTree<T> implements Tree<T> {
             if (node == par.getLeft()) par.setLeft(child);
             else                       par.setRight(child);
         }
+
         size--;
         T removed = node.element();
-        node.setElement(null);          // help GC
-        node.setParent(node);           // defunct sentinel
+        node.setElement(null);
+        node.setParent(node);
         return removed;
     }
 
-    // ================================================================
-    //  Binary-tree helpers  (left / right access)
-    // ================================================================
-
+    // Left/right access helpers
     public Position<T> left(Position<T> p)    { return validate(p).getLeft(); }
     public Position<T> right(Position<T> p)   { return validate(p).getRight(); }
-    public boolean     hasLeft(Position<T> p) { return validate(p).getLeft()  != null; }
-    public boolean     hasRight(Position<T> p){ return validate(p).getRight() != null; }
+    public boolean hasLeft(Position<T> p)     { return validate(p).getLeft()  != null; }
+    public boolean hasRight(Position<T> p)    { return validate(p).getRight() != null; }
 
+    // Returns sibling node
     public Position<T> sibling(Position<T> p) {
         TreeNode<T> node = validate(p);
         TreeNode<T> par  = node.getParent();
@@ -201,6 +175,7 @@ public class BinaryTree<T> implements Tree<T> {
         return (node == par.getLeft()) ? par.getRight() : par.getLeft();
     }
 
+    // Add left child
     protected Position<T> addLeft(TreeNode<T> node, T data) {
         if (node.getLeft() != null)
             throw new IllegalStateException("Left child already exists");
@@ -210,6 +185,7 @@ public class BinaryTree<T> implements Tree<T> {
         return child;
     }
 
+    // Add right child
     protected Position<T> addRight(TreeNode<T> node, T data) {
         if (node.getRight() != null)
             throw new IllegalStateException("Right child already exists");
@@ -219,175 +195,134 @@ public class BinaryTree<T> implements Tree<T> {
         return child;
     }
 
-    // ================================================================
-    //  BST Search / Insert / Delete
-    // ================================================================
-
-    /**
-     * Walk down from {@code node} following BST ordering.
-     * Returns the node containing key, or the last node visited
-     * (the would-be parent if key is absent).
-     */
+    // BST search (recursive)
     protected TreeNode<T> search(TreeNode<T> node, T key) {
         if (node == null) return null;
         int c = cmp.compare(key, node.element());
+
         if (c == 0) return node;
-        if (c < 0) {
-            return (node.getLeft() == null)  ? node : search(node.getLeft(), key);
-        } else {
+
+        if (c < 0)
+            return (node.getLeft() == null) ? node : search(node.getLeft(), key);
+        else
             return (node.getRight() == null) ? node : search(node.getRight(), key);
-        }
     }
 
-    /** @return true iff the tree contains key */
+    // Check if key exists
     public boolean contains(T key) {
         if (root == null) return false;
         TreeNode<T> n = search(root, key);
         return n != null && cmp.compare(key, n.element()) == 0;
     }
 
-    /** @return the Position storing key, or null */
+    // Find node containing key
     public Position<T> find(T key) {
         if (root == null) return null;
         TreeNode<T> n = search(root, key);
         return (n != null && cmp.compare(key, n.element()) == 0) ? n : null;
     }
 
-    /**
-     * Insert key into the BST.  Duplicates overwrite the
-     * existing element.
-     *
-     * @return the Position of the inserted (or updated) node
-     */
+    // Insert into BST
     public Position<T> insert(T key) {
         if (root == null) {
             addRoot(key);
             return root;
         }
+
         TreeNode<T> p = search(root, key);
         int c = cmp.compare(key, p.element());
-        if (c == 0) {                                   // duplicate
+
+        if (c == 0) {
             p.setElement(key);
             return p;
         }
+
         TreeNode<T> child = new TreeNode<>(key, p);
+
         if (c < 0) p.setLeft(child);
-        else        p.setRight(child);
+        else       p.setRight(child);
+
         size++;
-        afterInsert(child);                             // hook for AVL
+        afterInsert(child);
         return child;
     }
 
-    /**
-     * Delete the node containing key.
-     *
-     * Three cases:
-     *   0 children  →  unlink directly
-     *   1 child     →  promote the child
-     *   2 children  →  swap with in-order successor, then
-     *                   remove the successor
-     *
-     * @return the removed element, or null if key was absent
-     */
+    // Delete node from BST
     public T delete(T key) {
         if (root == null) return null;
+
         TreeNode<T> n = search(root, key);
         if (n == null || cmp.compare(key, n.element()) != 0) return null;
 
         TreeNode<T> rebalancePoint = n.getParent();
 
-        // ── two-child case ──────────────────────────────
+        // Two children case
         if (n.getLeft() != null && n.getRight() != null) {
             TreeNode<T> succ = minNode(n.getRight());
             n.setElement(succ.element());
             rebalancePoint = succ.getParent();
-            n = succ;                                   // now remove succ
+            n = succ;
         }
 
-        // ── zero- or one-child case ─────────────────────
+        // One or zero child
         TreeNode<T> child = (n.getLeft() != null)
                 ? n.getLeft() : n.getRight();
+
         if (child != null) child.setParent(n.getParent());
 
-        if (n.getParent() == null) {
-            root = child;
-        } else if (n == n.getParent().getLeft()) {
-            n.getParent().setLeft(child);
-        } else {
-            n.getParent().setRight(child);
-        }
+        if (n.getParent() == null) root = child;
+        else if (n == n.getParent().getLeft()) n.getParent().setLeft(child);
+        else n.getParent().setRight(child);
+
         size--;
         T removed = n.element();
-        afterDelete(rebalancePoint);                    // hook for AVL
+        afterDelete(rebalancePoint);
         return removed;
     }
 
-    /** Find the minimum node in the subtree rooted at n. */
+    // Find minimum node in subtree
     protected TreeNode<T> minNode(TreeNode<T> n) {
         while (n.getLeft() != null) n = n.getLeft();
         return n;
     }
 
-    // ================================================================
-    //  Hooks — overridden by AVLTree
-    // ================================================================
+    // Hooks for AVL (empty here)
+    protected void afterInsert(TreeNode<T> node) { }
+    protected void afterDelete(TreeNode<T> node) { }
 
-    protected void afterInsert(TreeNode<T> node) { /* no-op */ }
-    protected void afterDelete(TreeNode<T> node) { /* no-op */ }
-
-    // ================================================================
-    //  Rotation primitives  (used by AVLTree)
-    // ================================================================
-
-    /**
-     * Right-rotate around x.
-     * <pre>
-     *        x              y
-     *       / \            / \
-     *      y   C    →    A    x
-     *     / \                / \
-     *    A   B              B   C
-     * </pre>
-     */
+    // Right rotation
     protected void rotateRight(TreeNode<T> x) {
         TreeNode<T> y = x.getLeft();
         x.setLeft(y.getRight());
         if (y.getRight() != null) y.getRight().setParent(x);
+
         y.setParent(x.getParent());
-        if      (x.getParent() == null)             root = y;
-        else if (x == x.getParent().getLeft())      x.getParent().setLeft(y);
-        else                                        x.getParent().setRight(y);
+
+        if (x.getParent() == null) root = y;
+        else if (x == x.getParent().getLeft()) x.getParent().setLeft(y);
+        else x.getParent().setRight(y);
+
         y.setRight(x);
         x.setParent(y);
     }
 
-    /**
-     * Left-rotate around x.
-     * <pre>
-     *      x                y
-     *     / \              / \
-     *    A   y      →    x    C
-     *       / \         / \
-     *      B   C       A   B
-     * </pre>
-     */
+    // Left rotation
     protected void rotateLeft(TreeNode<T> x) {
         TreeNode<T> y = x.getRight();
         x.setRight(y.getLeft());
         if (y.getLeft() != null) y.getLeft().setParent(x);
+
         y.setParent(x.getParent());
-        if      (x.getParent() == null)             root = y;
-        else if (x == x.getParent().getLeft())      x.getParent().setLeft(y);
-        else                                        x.getParent().setRight(y);
+
+        if (x.getParent() == null) root = y;
+        else if (x == x.getParent().getLeft()) x.getParent().setLeft(y);
+        else x.getParent().setRight(y);
+
         y.setLeft(x);
         x.setParent(y);
     }
 
-    // ================================================================
-    //  Utility
-    // ================================================================
-
-    /** Compute height by recursive descent (for testing / experiments). */
+    // Compute height recursively (for testing)
     public int height() { return heightOf(root); }
 
     private int heightOf(TreeNode<T> n) {
@@ -395,5 +330,3 @@ public class BinaryTree<T> implements Tree<T> {
         return 1 + Math.max(heightOf(n.getLeft()), heightOf(n.getRight()));
     }
 }
-
-

@@ -8,98 +8,63 @@ public class AvlTree<T> extends BinaryTree<T> {
         super(cmp);
     }
 
-    // ================================================================
-    //  Height helpers
-    // ================================================================
-
-    /** Height of a possibly-null node (−1 for null). */
+    // Returns height of a node, or -1 if null
     private int h(TreeNode<T> n) {
         return (n == null) ? -1 : n.getHeight();
     }
 
-    /** Recompute and store the height of n from its children. */
+    // Updates the height of a node based on its children
     private void updateHeight(TreeNode<T> n) {
         n.setHeight(1 + Math.max(h(n.getLeft()), h(n.getRight())));
     }
 
-    /** Balance factor = height(left) − height(right). */
+    // Calculates balance factor (left height - right height)
     private int balanceFactor(TreeNode<T> n) {
         return h(n.getLeft()) - h(n.getRight());
     }
 
-    // ================================================================
-    //  Rebalance walk
-    // ================================================================
-
-    /**
-     * Walk from {@code node} toward the root, restoring the AVL
-     * invariant at every ancestor whose balance factor has
-     * left the set {−1, 0, 1}.
-     *
-     * <ul>
-     *   <li>After an <b>insert</b>, at most one trinode
-     *       restructure is performed (the repaired subtree
-     *       regains its original height, so no ancestor above
-     *       is affected).</li>
-     *   <li>After a <b>delete</b>, a rotation may shorten the
-     *       subtree, unbalancing the grandparent — the walk
-     *       therefore continues to the root, potentially
-     *       performing O(log n) rotations.</li>
-     * </ul>
-     */
+    // Rebalances the tree starting from a given node up to the root
     private void rebalance(TreeNode<T> node) {
         while (node != null) {
             updateHeight(node);
             int bf = balanceFactor(node);
 
             if (bf > 1) {
-                // ── left-heavy subtree ─────────────────
+                // Left-heavy case
                 if (balanceFactor(node.getLeft()) < 0) {
-                    // Left-Right case: double rotation
+                    // Left-Right case
                     rotateLeft(node.getLeft());
                 }
-                // Left-Left case (or Left-Right after first rotation)
+                // Left-Left case
                 rotateRight(node);
-                // node has moved down; new subtree root is
-                // the node that was rotated up.
                 node = node.getParent();
 
             } else if (bf < -1) {
-                // ── right-heavy subtree ────────────────
+                // Right-heavy case
                 if (balanceFactor(node.getRight()) > 0) {
-                    // Right-Left case: double rotation
+                    // Right-Left case
                     rotateRight(node.getRight());
                 }
-                // Right-Right case (or Right-Left after first rotation)
+                // Right-Right case
                 rotateLeft(node);
                 node = node.getParent();
             }
 
-            // refresh height after any rotation, then ascend
+            // Update height and move up the tree
             if (node != null) updateHeight(node);
             node = (node != null) ? node.getParent() : null;
         }
     }
 
-    // ================================================================
-    //  Rotation overrides — keep heights consistent
-    // ================================================================
-
-    /**
-     * Right-rotate, then immediately update the stored heights
-     * of the two affected nodes (the one that moved down and
-     * the one that moved up).
-     */
+    // Performs right rotation and updates heights
     @Override
     protected void rotateRight(TreeNode<T> x) {
         super.rotateRight(x);
-        updateHeight(x);                // x moved down → update first
-        updateHeight(x.getParent());    // y moved up   → update second
+        updateHeight(x);
+        updateHeight(x.getParent());
     }
 
-    /**
-     * Left-rotate with the same height bookkeeping.
-     */
+    // Performs left rotation and updates heights
     @Override
     protected void rotateLeft(TreeNode<T> x) {
         super.rotateLeft(x);
@@ -107,29 +72,15 @@ public class AvlTree<T> extends BinaryTree<T> {
         updateHeight(x.getParent());
     }
 
-    // ================================================================
-    //  Hooks from BinaryTree
-    // ================================================================
-
-    /**
-     * Called by {@link BinaryTree#insert} after a new leaf is linked
-     * into the tree.  Walks from the new leaf to the root, fixing
-     * at most one imbalance.
-     */
+    // Called after insertion to restore AVL balance
     @Override
     protected void afterInsert(TreeNode<T> node) {
         rebalance(node);
     }
 
-    /**
-     * Called by {@link BinaryTree#delete} after a node has been
-     * unlinked.  Walks from the parent of the removed node to the
-     * root, fixing every imbalance encountered (up to O(log n)
-     * rotations in the worst case).
-     */
+    // Called after deletion to restore AVL balance
     @Override
     protected void afterDelete(TreeNode<T> node) {
         rebalance(node);
     }
 }
-
