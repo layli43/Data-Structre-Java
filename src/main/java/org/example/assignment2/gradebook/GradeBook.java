@@ -61,21 +61,18 @@ public class GradeBook {
      * Uses the elements() iterator from AbstractTree.
      */
     public void printRoster() {
-        System.out.println("┌─────────────────────────────────────────┐");
-        System.out.println("│            STUDENT ROSTER               │");
-        System.out.printf( "│   Enrolled: %-4d   Tree height: %-4d    │%n",
+        System.out.println("           STUDENT ROSTER               ");
+        System.out.printf( "   Enrolled: %-4d   Tree height: %-4d    %n",
                 tree.size(), tree.height());
-        System.out.println("├─────────────────────────────────────────┤");
 
         if (tree.isEmpty()) {
-            System.out.println("│   (no students enrolled)                │");
+            System.out.println("   (no students enrolled)                ");
         } else {
             Iterator<Student> it = tree.elements();
             while (it.hasNext()) {
-                System.out.println("│  " + it.next() + "    │");
+                System.out.println("  " + it.next() + "    ");
             }
         }
-        System.out.println("└─────────────────────────────────────────┘");
     }
 
     /**
