@@ -27,17 +27,6 @@ public class Main {
 
         //Print full roster (in-order traversal)
         book.printRoster();
-        System.out.println();
-
-        //ASCII tree visualisation
-        System.out.println("Tree shape:\n");
-        // Access the underlying tree for printing.
-        BinaryTree<Integer> demoTree = new BinaryTree<Integer>(Comparator.naturalOrder());
-        for (int id : new int[]{1025, 1010, 1042, 1005, 1018, 1030, 1050}) {
-            demoTree.insert(id);
-        }
-        TreePrinter.print(demoTree);
-        System.out.println();
 
         //Lookup & membership
         System.out.println("Lookups:\n");
@@ -45,22 +34,22 @@ public class Main {
         Student found = book.lookup(1042);
         System.out.println("  find(1042)   → " + found);
 
-        System.out.println("  contains(1010) → " + book.isEnrolled(1010));
+        System.out.println("  contains(1010) → " + book.isEnrolled(25203228));
         System.out.println("  contains(9999) → " + book.isEnrolled(9999));
         System.out.println();
 
         //Update a grade (replace)
         System.out.println("Update grade:\n");
 
-        System.out.println("Before: " + book.lookup(1010));
-        book.updateGrade(1010, 85.0);
-        System.out.println("  After:  " + book.lookup(1010));
+        System.out.println("Before: " + book.lookup(25203228));
+        book.updateGrade(25203228, 85.0);
+        System.out.println("  After:  " + book.lookup(25203228));
         System.out.println();
 
         //Withdraw a student
         System.out.println("Withdraw student:\n");
 
-        Student removed = book.withdraw(1042);
+        Student removed = book.withdraw(25203228);
         System.out.println("  Withdrawn: " + removed);
         System.out.println("  Enrolled now: " + book.studentCount());
         System.out.println("  Tree height:  " + book.treeHeight());
