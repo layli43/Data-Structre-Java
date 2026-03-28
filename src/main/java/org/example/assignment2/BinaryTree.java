@@ -1,8 +1,8 @@
 package org.example.assignment2;
 
-import org.example.structres.Iterator;
-import org.example.structres.Position;
-import org.example.structres.Tree;
+import org.example.structures.Iterator;
+import org.example.structures.Position;
+import org.example.structures.Tree;
 
 import java.util.ArrayList;
 import java.util.Comparator;

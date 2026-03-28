@@ -1,6 +1,6 @@
 package org.example.assignment2;
 
-import org.example.structres.Position;
+import org.example.structures.Position;
 
 public class TreeNode<T> implements Position<T> {
 

@@ -1,8 +1,8 @@
 package org.example.assignment2.gradebook;
 
 import org.example.assignment2.BinaryTree;
-import org.example.structres.Iterator;
-import org.example.structres.Position;
+import org.example.structures.Iterator;
+import org.example.structures.Position;
 
 import java.util.Comparator;
 
