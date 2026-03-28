@@ -8,8 +8,6 @@ public class Main {
     public static void main(String[] args) {
         //Run performance experiment
         Experiment.run();
-
-        //Demonstrate HeapPriorityQueue
         System.out.println("\nHeap Priority Queue Demo: ");
 
         PriorityQueue<Integer, String> pq =
