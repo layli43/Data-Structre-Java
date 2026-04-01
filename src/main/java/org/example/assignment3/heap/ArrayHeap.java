@@ -1,4 +1,8 @@
-package org.example.structures;
+package org.example.assignment3.heap;
+
+import org.example.structures.Comparator;
+import org.example.structures.Entry;
+import org.example.structures.Heap;
 
 import java.util.ArrayList;
 
@@ -78,4 +82,15 @@ public class ArrayHeap<K, V> implements Heap<K, V> {
 
     @Override public int size() { return heap.size(); }
     @Override public boolean isEmpty() { return heap.isEmpty(); }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        for(Entry<K, V> node : heap) {
+            res.append(node.getKey()+" ");
+        }
+        return res.toString();
+    }
+
+
 }

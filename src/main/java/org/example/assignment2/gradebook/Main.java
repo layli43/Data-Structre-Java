@@ -31,10 +31,10 @@ public class Main {
         //Lookup & membership
         System.out.println("Lookups:\n");
 
-        Student found = book.lookup(1042);
-        System.out.println("  find(1042)   → " + found);
+        Student found = book.lookup(25203228);
+        System.out.println("  find(25203228)   → " + found);
 
-        System.out.println("  contains(1010) → " + book.isEnrolled(25203228));
+        System.out.println("  contains(25203228) → " + book.isEnrolled(25203228));
         System.out.println("  contains(9999) → " + book.isEnrolled(9999));
         System.out.println();
 

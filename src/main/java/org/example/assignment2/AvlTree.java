@@ -1,5 +1,7 @@
 package org.example.assignment2;
 
+import org.example.structures.Position;
+
 import java.util.Comparator;
 
 public class AvlTree<T> extends BinaryTree<T> {
@@ -82,5 +84,16 @@ public class AvlTree<T> extends BinaryTree<T> {
     @Override
     protected void afterDelete(TreeNode<T> node) {
         rebalance(node);
+    }
+
+    // Add left child
+    @Override
+    protected Position<T> addLeft(TreeNode<T> node, T data) {
+        if (node.getLeft() != null)
+            throw new IllegalStateException("Left child already exists");
+        TreeNode<T> child = new TreeNode<>(data, node);
+        node.setLeft(child);
+        size++;
+        return child;
     }
 }

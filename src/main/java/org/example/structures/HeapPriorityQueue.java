@@ -1,5 +1,7 @@
 package org.example.structures;
 
+import org.example.assignment3.heap.ArrayHeap;
+
 public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
 
     private final ArrayHeap<K, V> heap;
