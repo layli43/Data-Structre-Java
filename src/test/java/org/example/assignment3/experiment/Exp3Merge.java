@@ -84,6 +84,7 @@ public class Exp3Merge {
         System.out.println("  (binomial heap, leftist heap) where merge is the primitive.");
     }
 
+    // Build a new heap
     static ArrayHeap<Integer, Integer> mergeExtractAll(
             ArrayHeap<Integer, Integer> h1, ArrayHeap<Integer, Integer> h2) {
         ArrayHeap<Integer, Integer> merged = new ArrayHeap<>(Integer::compare);
